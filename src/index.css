@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(20,20,148,1) 30%, rgba(13,148,176,1) 100%) no-repeat;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.car-container {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  transform: translateX(0);
+  transition-property: transform;
+}
+
+.car-container.moving {
+  transform: translateX(var(--translate-distance));
+}
