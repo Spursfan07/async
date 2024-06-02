@@ -4,7 +4,7 @@ import Winners from './pages/Winners'
 import NotFound from './pages/404'
 import { Route, Routes } from 'react-router-dom'
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
       <header className="pt-5">

@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { garageAPI } from '../services/GarageService'
-import { winnersAPI } from '../services/WinnersService'
 import { Car } from '../types/types'
 import { Car as CarComponent } from '../components/'
+import { garageAPI } from '../services/GarageService'
+import { winnersAPI } from '../services/WinnersService'
 
-const Winners = () => {
+const Winners: React.FC = () => {
   const { data: cars } = garageAPI.useGetCarsQuery({
     page: 1,
     limit: 10,
@@ -14,8 +14,6 @@ const Winners = () => {
     limit: 10,
     order: 'DESC',
   })
-
-  console.log(winners)
 
   const winnerData = useMemo(() => {
     if (!winners || !cars) return []
@@ -31,7 +29,6 @@ const Winners = () => {
       }
     })
   }, [winners, cars])
-  console.log(winnerData)
 
   return (
     <div>

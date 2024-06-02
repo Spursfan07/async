@@ -1,14 +1,14 @@
 import { TrackProps } from '../types/types'
 import { Car } from './index'
 
-const Track = ({
+const Track: React.FC<TrackProps> = ({
   car: { id, name, color, distance, velocity },
   selectCar,
   setSelectCar,
   handleDelete,
   handleStartCar,
   handleStopCar,
-}: TrackProps) => {
+}) => {
   return (
     <div className="w-full">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

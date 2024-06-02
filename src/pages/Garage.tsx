@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Track } from '../components'
-import { Car, CarProps } from '../types/types'
+import { Modal, Track } from '../components'
+import { Car, CarData } from '../types/types'
 
 import generateColor from '../utils/generateColor'
 import genereateCar from '../utils/generateCar'
@@ -21,14 +21,18 @@ import {
   useLazyGetWinnerQuery,
 } from '../services/WinnersService'
 
-const Garage = () => {
-  const [cars, setCars] = useState<CarProps[]>([])
+const Garage: React.FC = () => {
+  const [cars, setCars] = useState<CarData[]>([])
+  const [winner, setWinner] = useState<{ name: string; time: number } | null>(
+    null
+  )
   const [newCar, setNewCar] = useState<Car>({ name: '', color: '#000000' })
   const [editCar, setEditCar] = useState<Car>({ name: '', color: '#000000' })
   const [selectCar, setSelectCar] = useState<number | null>(null)
   const [page, setPage] = useState<number>(1)
   const [totalCars, setTotalCars] = useState<number>(0)
   const [isRaceCompleted, setIsRaceCompleted] = useState<boolean>(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const [deleteCar] = useDeleteCarMutation()
   const [updateCar] = useUpdateCarMutation()
@@ -118,7 +122,9 @@ const Garage = () => {
         })
       }
 
+      setWinner({ name: winner.name, time: winnerTime })
       setIsRaceCompleted(true)
+      setIsModalOpen(true)
     } catch (error) {
       console.error('Error starting cars:', error)
     }
@@ -240,7 +246,7 @@ const Garage = () => {
           <input
             id="newCarName"
             type="text"
-            className="h-8 rounded"
+            className="h-8 rounded px-1"
             value={newCar.name}
             onChange={(e) => setNewCar({ ...newCar, name: e.target.value })}
           />
@@ -265,7 +271,7 @@ const Garage = () => {
           <input
             id="editCarName"
             type="text"
-            className="h-8 rounded"
+            className="h-8 rounded px-1"
             value={editCar.name}
             onChange={(e) => setEditCar({ ...editCar, name: e.target.value })}
           />
@@ -312,6 +318,16 @@ const Garage = () => {
           ))}
         </div>
       </div>
+
+      {/* MODAL */}
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          winnerName={winner?.name!}
+          winnerTime={winner?.time!}
+        />
+      )}
 
       {/* PAGINATION */}
       <div className="flex justify-center my-5">

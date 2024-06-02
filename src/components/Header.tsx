@@ -1,7 +1,7 @@
 import logo from '../assets/logo.svg'
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <div className="w-[80%] mx-auto flex justify-between items-center">
       <div className="flex flex-col items-center justify-center gap-4">
